@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Elegant Portfolio — Your Name</title>
+  <meta name="description" content="Elegant, animated, and dynamic portfolio built with HTML/CSS/JS (SPA)" />
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="blob a" aria-hidden></div>
+  <div class="blob b" aria-hidden></div>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo"><img src="images/portfolio_logo.png" alt="network issue.." style="width: 52px; height: 52px;"></div>
+        <div>
+          <div style="font-weight:800">Your Name</div>
+          <div class="small muted">Full‑Stack Developer • Designer</div>
+        </div>
+      </div>
+
+      <nav id="nav">
+        <a href="#/" data-route="/" class="active">Home</a>
+        <a href="#/projects" data-route="/projects">Projects</a>
+        <a href="#/about" data-route="/about">About</a>
+        <a href="#/blog" data-route="/blog">Blog</a>
+        <a href="#/contact" data-route="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="app">
+      <!-- HOME PAGE -->
+      <section id="page-home" class="fade-in">
+        <div class="hero">
+          <div class="intro card">
+            <span class="eyebrow">Crafting elegant experiences</span>
+            <h1>Hi, I'm <span id="dynamic-name">Your Name</span> — <span id="typewriter" aria-hidden></span></h1>
+            <p class="lead">I build clean, accessible web apps with delightful interactions. I like minimalist design, smooth motion and fast experiences.</p>
+            <div class="cta-row">
+              <button class="btn btn-primary" id="hireBtn">Hire me</button>
+              <a class="btn btn-ghost" href="#/projects">See projects</a>
+            </div>
+
+            <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+              <div class="card" style="display:flex;gap:12px;align-items:center">
+                <div style="font-weight:800">8+</div>
+                <div class="muted small">Years building products</div>
+              </div>
+              <div class="card" style="display:flex;gap:12px;align-items:center">
+                <div style="font-weight:800">30+</div>
+                <div class="muted small">Projects shipped</div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="card profile-card">
+            <div class="avatar">YN</div>
+            <div style="text-align:center">
+              <div style="font-weight:800">Your Name</div>
+              <div class="muted small">Frontend · Backend · Designer</div>
+            </div>
+            <div class="socials">
+              <a class="muted small" href="#">GitHub</a>
+              <a class="muted small" href="#">LinkedIn</a>
+              <a class="muted small" href="#">Dribbble</a>
+            </div>
+            <div style="margin-top:auto;width:100%">
+              <div class="muted small">Top skills</div>
+              <div class="skills" style="margin-top:8px">
+                <div class="skill">HTML</div>
+                <div class="skill">CSS</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">React</div>
+                <div class="skill">Node.js</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- quick projects preview -->
+        <section style="margin-top:28px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3>Selected projects</h3>
+            <a href="#/projects" class="muted small">View all →</a>
+          </div>
+
+          <div class="grid" style="margin-top:14px">
+            <article class="project card" data-id="p1">
+              <h4>Design System UI Kit</h4>
+              <div class="muted small">A reusable components library for fast product shipping.</div>
+              <div class="tags">
+                <div class="tag">React</div>
+                <div class="tag">Figma</div>
+              </div>
+            </article>
+
+            <article class="project card" data-id="p2">
+              <h4>Social Feed App</h4>
+              <div class="muted small">Realtime feed with optimistic updates and offline support.</div>
+              <div class="tags"><div class="tag">PWA</div><div class="tag">IndexedDB</div></div>
+            </article>
+
+            <article class="project card" data-id="p3">
+              <h4>Studio Website</h4>
+              <div class="muted small">Animation-first marketing site with high performance LCP.</div>
+              <div class="tags"><div class="tag">Animation</div><div class="tag">Performance</div></div>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <!-- PROJECTS PAGE -->
+      <section id="page-projects" class="fade-in" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h2>Projects</h2>
+          <div class="muted small">Click any project for details</div>
+        </div>
+
+        <div class="grid" style="margin-top:16px">
+          <!-- repeat projects with data attributes for modal -->
+          <article class="project card" data-id="p1"><h4>Design System UI Kit</h4><div class="muted small">React, Typescript, Storybook</div></article>
+          <article class="project card" data-id="p2"><h4>Social Feed App</h4><div class="muted small">PWA, Socket.IO, IndexedDB</div></article>
+          <article class="project card" data-id="p3"><h4>Studio Website</h4><div class="muted small">Greensock, SVG animations</div></article>
+          <article class="project card" data-id="p4"><h4>E-commerce prototype</h4><div class="muted small">Checkout flow and analytics</div></article>
+          <article class="project card" data-id="p5"><h4>Design-to-code Flow</h4><div class="muted small">DesignOps automation</div></article>
+          <article class="project card" data-id="p6"><h4>Open Source Tooling</h4><div class="muted small">CLI & DevTools</div></article>
+        </div>
+      </section>
+
+      <!-- ABOUT PAGE -->
+      <section id="page-about" class="fade-in" style="display:none">
+        <h2>About me</h2>
+        <div class="card" style="margin-top:12px;padding:18px;display:grid;grid-template-columns:1fr 300px;gap:18px">
+          <div>
+            <p class="muted">I'm a product-minded engineer who loves clean interfaces and delightful motion. I focus on building accessible experiences and ship production-ready code.</p>
+
+            <h4 style="margin-top:12px">What I do</h4>
+            <ul>
+              <li>Design and implement interfaces with pixel precision.</li>
+              <li>Build resilient backends and APIs.</li>
+              <li>Mentor teams and improve engineering workflows.</li>
+            </ul>
+
+            <h4 style="margin-top:12px">Tools I use</h4>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+              <div class="skill">Figma</div>
+              <div class="skill">VS Code</div>
+              <div class="skill">Node</div>
+              <div class="skill">React</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card" style="padding:12px">
+              <div style="font-weight:800">Experience</div>
+              <div class="muted small" style="margin-top:8px">Previously at • Acme Inc • StudioX • Open Source</div>
+              <div style="margin-top:12px"><strong>Available for hire</strong><div class="muted small">Contract & full-time</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOG PAGE (static list) -->
+      <section id="page-blog" class="fade-in" style="display:none">
+        <h2>Blog</h2>
+        <div style="margin-top:12px" class="grid">
+          <article class="card" style="padding:16px"><h4>Designing for motion</h4><div class="muted small">10 Aug 2025</div><p class="muted small">A short piece about when to use animation and when to avoid it.</p></article>
+          <article class="card" style="padding:16px"><h4>Scaling a PWA</h4><div class="muted small">20 Jun 2025</div><p class="muted small">Strategies for performance and offline-first behavior.</p></article>
+          <article class="card" style="padding:16px"><h4>From figma to code</h4><div class="muted small">06 Apr 2025</div><p class="muted small">Workflow tips when translating design systems to components.</p></article>
+        </div>
+      </section>
+
+      <!-- CONTACT PAGE -->
+      <section id="page-contact" class="fade-in" style="display:none">
+        <h2>Contact</h2>
+        <div class="card" style="margin-top:12px;padding:18px;display:grid;grid-template-columns:1fr 320px;gap:18px">
+          <form id="contactForm">
+            <input id="name" placeholder="Your name" required />
+            <input id="email" type="email" placeholder="you@domain.com" required />
+            <textarea id="message" rows="6" placeholder="Tell me about your project"></textarea>
+            <div style="display:flex;gap:10px;align-items:center">
+              <button class="btn btn-primary" type="submit">Send message</button>
+              <div id="formStatus" class="muted small"></div>
+            </div>
+          </form>
+
+          <div>
+            <div class="muted small">Prefer email?</div>
+            <div style="margin-top:8px">youremail@domain.com</div>
+            <div style="margin-top:18px" class="muted small">Location</div>
+            <div style="margin-top:8px">Chennai, India</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="muted small">© <span id="year"></span> Your Name — Built with ❤️</div>
+    </footer>
+  </div>
+
+  <!-- Project modal (hidden) -->
+  <div class="modal" id="modal">
+    <div class="dialog card">
+      <button id="closeModal" style="float:right">Close</button>
+      <h3 id="modalTitle">Project title</h3>
+      <p id="modalBody" class="muted small">Project details will appear here.</p>
+      <div style="margin-top:12px" id="modalTags"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
