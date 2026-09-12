@@ -4,6 +4,7 @@ import Typewriter from './components/Typewriter';
 import ProjectCard from './components/ProjectCard';
 import ProjectModal from './components/ProjectModal';
 import ContactForm from './components/ContactForm';
+import CertificationsPage from './components/CertificationsPage';
 
 const localFallbackProjects = [
   {
@@ -94,8 +95,20 @@ export default function App() {
       })
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
+          const ignoredRepoKeys = [
+            'tamizhcode',
+            'myportfolio',
+            'problemsloving',
+            'problemsolving',
+            'studdb',
+            'cricketdb'
+          ];
           const formatted = data
-            .filter((repo) => !repo.fork)
+            .filter((repo) => {
+              if (repo.fork) return false;
+              const cleanKey = repo.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+              return !ignoredRepoKeys.includes(cleanKey);
+            })
             .map((repo) => ({
               id: String(repo.id),
               title: repo.name
@@ -215,6 +228,7 @@ export default function App() {
   const navLinks = [
     { label: 'Home', path: '/' },
     { label: 'Projects', path: '/projects' },
+    { label: 'Certifications', path: '/certifications' },
     { label: 'About', path: '/about' },
     { label: 'Contact', path: '/contact' }
   ];
@@ -372,6 +386,11 @@ export default function App() {
             </section>
           )}
 
+          {/* CERTIFICATIONS PAGE */}
+          {currentRoute === '/certifications' && (
+            <CertificationsPage />
+          )}
+
           {/* ABOUT PAGE */}
           {currentRoute === '/about' && (
             <section id="page-about" className="fade-in visible">
@@ -404,7 +423,10 @@ export default function App() {
                     </div>
                   </div>
 
-                  <h4 style={{ margin: '0 0 12px 0', fontWeight: 800, fontSize: '16px' }}>Certifications & Achievements</h4>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 12px 0' }}>
+                    <h4 style={{ margin: 0, fontWeight: 800, fontSize: '16px' }}>Certifications & Achievements</h4>
+                    <a href="#/certifications" className="muted small" style={{ fontWeight: 600, color: 'var(--accent1)', textDecoration: 'none' }}>View Certificate Gallery →</a>
+                  </div>
                   <ul className="muted" style={{ margin: '0 0 24px 0', paddingLeft: '20px', lineHeight: '1.6', fontSize: '15px' }}>
                     <li><strong>AWS Cloud Practitioner Essentials:</strong> In-depth training on cloud concepts and core AWS services.</li>
                     <li><strong>Google Cloud Arcade:</strong> Earned 7+ Google Cloud Skill Badges & completed Google Cloud Arcade Level 3 (Serverless, Generative AI, cloud infra).</li>

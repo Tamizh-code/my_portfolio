@@ -662,3 +662,36 @@ footer {
   height: auto;
   border-radius: 8px;
 }
+
+/* Certificate Cards & Preview Hover Effects */
+.cert-card {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  border-color: rgba(79, 70, 229, 0.2);
+}
+
+.cert-card:hover .cert-img-preview {
+  transform: scale(1.05);
+}
+
+.cert-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.cert-card:hover .cert-hover-overlay {
+  opacity: 1;
+}
+
