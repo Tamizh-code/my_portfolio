@@ -34,15 +34,29 @@ export default function ProjectModal({ isOpen, onClose, project }) {
   useEffect(() => {
     if (!isOpen || !project) return;
 
+    // 1) Use pre-defined readmeContent if available (curated private project config)
+    if (project.readmeContent) {
+      setReadmeHtml(project.readmeContent);
+      setIsLoading(false);
+      return;
+    }
+
+    // 2) Fetch README dynamically from GitHub API
     if (project.name) {
       setIsLoading(true);
       setReadmeHtml(null);
 
-      fetch(`https://api.github.com/repos/Tamizh-code/${project.name}/readme`, {
-        headers: {
-          Accept: 'application/vnd.github.html'
-        }
-      })
+      const headers = {
+        Accept: 'application/vnd.github.html'
+      };
+
+      const token = import.meta.env.VITE_GITHUB_TOKEN;
+      if (token) {
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const repoOwner = project.owner || 'Tamizh-code';
+      fetch(`https://api.github.com/repos/${repoOwner}/${project.name}/readme`, { headers })
         .then((res) => {
           if (!res.ok) throw new Error('README not found');
           return res.text();
@@ -101,9 +115,16 @@ export default function ProjectModal({ isOpen, onClose, project }) {
           ×
         </button>
         <div style={{ overflowY: 'auto', paddingRight: '6px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          <h3 id="modalTitle" style={{ margin: '0', fontSize: '22px', fontWeight: 800 }}>
-            {project.title}
-          </h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <h3 id="modalTitle" style={{ margin: '0', fontSize: '22px', fontWeight: 800 }}>
+              {project.title}
+            </h3>
+            {project.isPrivate && (
+              <span className="tag" style={{ fontSize: '11px', padding: '3px 10px', background: 'rgba(244, 63, 94, 0.15)', color: '#fda4af', border: '1px solid rgba(244, 63, 94, 0.3)' }}>
+                🔒 Private Repository
+              </span>
+            )}
+          </div>
           
           {isLoading ? (
             <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--muted-light)' }}>

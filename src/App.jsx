@@ -5,27 +5,7 @@ import ProjectCard from './components/ProjectCard';
 import ProjectModal from './components/ProjectModal';
 import ContactForm from './components/ContactForm';
 import CertificationsPage from './components/CertificationsPage';
-
-const localFallbackProjects = [
-  {
-    id: 'p1',
-    title: 'Tourism Management System (TMS)',
-    body: 'Built a comprehensive Tourism Management System that allows users to explore destinations, plan trips, and manage travel details in a smooth workflow.',
-    tags: ['Java', 'Spring Boot', 'React.js', 'MySQL', 'REST API']
-  },
-  {
-    id: 'p2',
-    title: 'Application Management System (AMS)',
-    body: 'Developed an Application Management System with an authorization workflow, enabling users to submit requests, track approval status, and receive notifications.',
-    tags: ['Spring Boot', 'Java', 'React.js', 'MySQL', 'REST APIs', 'CRUD']
-  },
-  {
-    id: 'p3',
-    title: 'Hotel Management System Backend',
-    body: 'Developed a Hotel Management System to streamline room bookings, customer record management, billing, and room availability tracking through an efficient MVC workflow.',
-    tags: ['Java', 'Spring Boot', 'MySQL', 'MVC Architecture']
-  }
-];
+import { privateProjects } from './config/privateProjects';
 
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState('/');
@@ -33,7 +13,7 @@ export default function App() {
   const [logo, setLogo] = useState('TM');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [projects, setProjects] = useState(localFallbackProjects);
+  const [projects, setProjects] = useState(privateProjects);
 
   const dotsRef = useRef([]);
   const mousePos = useRef({ x: -100, y: -100 });
@@ -86,9 +66,19 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // 4) Dynamic GitHub Projects Fetching
+  // 4) Dynamic GitHub Projects Fetching (Supports Public & Private Repos via Token or Curated Config)
   useEffect(() => {
-    fetch('https://api.github.com/users/Tamizh-code/repos?sort=updated&per_page=15')
+    const token = import.meta.env.VITE_GITHUB_TOKEN;
+    const endpoint = token
+      ? 'https://api.github.com/user/repos?sort=updated&per_page=30&affiliation=owner'
+      : 'https://api.github.com/users/Tamizh-code/repos?sort=updated&per_page=30';
+
+    const headers = {};
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    fetch(endpoint, { headers })
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch repositories');
         return res.json();
@@ -98,10 +88,8 @@ export default function App() {
           const ignoredRepoKeys = [
             'tamizhcode',
             'myportfolio',
-            'problemsloving',
             'problemsolving',
-            'studdb',
-            'cricketdb'
+            'problemsloving'
           ];
           const formatted = data
             .filter((repo) => {
@@ -114,18 +102,41 @@ export default function App() {
               title: repo.name
                 .replace(/[-_]/g, ' ')
                 .replace(/\b\w/g, (char) => char.toUpperCase()),
-              body: repo.description || 'A public repository on GitHub.',
+              body: repo.description || (repo.private ? 'A private repository on GitHub.' : 'A public repository on GitHub.'),
               tags: [repo.language, ...(repo.topics || [])].filter(Boolean),
               htmlUrl: repo.html_url,
-              name: repo.name
+              name: repo.name,
+              isPrivate: Boolean(repo.private),
+              owner: repo.owner?.login || 'Tamizh-code'
             }));
+
           if (formatted.length > 0) {
-            setProjects(formatted);
+            const formattedCleanKeys = formatted.map((p) => p.name.toLowerCase().replace(/[^a-z0-9]/g, ''));
+
+            const curatedNonDuplicates = privateProjects.map((curated) => {
+              const clean = curated.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+              const matchedIdx = formattedCleanKeys.indexOf(clean);
+              if (matchedIdx !== -1) {
+                formatted[matchedIdx] = {
+                  ...curated,
+                  ...formatted[matchedIdx],
+                  title: curated.title || formatted[matchedIdx].title,
+                  body: curated.body || formatted[matchedIdx].body,
+                  tags: curated.tags?.length ? curated.tags : formatted[matchedIdx].tags,
+                  isPrivate: curated.isPrivate || formatted[matchedIdx].isPrivate,
+                  readmeContent: curated.readmeContent || formatted[matchedIdx].readmeContent
+                };
+                return null;
+              }
+              return curated;
+            }).filter(Boolean);
+
+            setProjects([...curatedNonDuplicates, ...formatted]);
           }
         }
       })
       .catch((err) => {
-        console.error('Error fetching GitHub repos, using fallback projects:', err);
+        console.error('Error fetching GitHub repos, using curated fallback projects:', err);
       });
   }, []);
 
@@ -355,6 +366,7 @@ export default function App() {
                       title={proj.title}
                       description={proj.body}
                       tags={proj.tags}
+                      isPrivate={proj.isPrivate}
                       onClick={() => setSelectedProject(proj)}
                     />
                   ))}
@@ -379,6 +391,7 @@ export default function App() {
                     title={proj.title}
                     description={proj.body}
                     tags={proj.tags}
+                    isPrivate={proj.isPrivate}
                     onClick={() => setSelectedProject(proj)}
                   />
                 ))}

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 
-export default function ProjectCard({ id, title, description, tags, onClick, enableTilt = true, className = '' }) {
+export default function ProjectCard({ id, title, description, tags, isPrivate, onClick, enableTilt = true, className = '' }) {
   const cardRef = useRef(null);
   let rect = null;
 
@@ -53,7 +53,14 @@ export default function ProjectCard({ id, title, description, tags, onClick, ena
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
     >
-      <h4>{title}</h4>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', marginBottom: '8px' }}>
+        <h4 style={{ margin: 0, flex: 1 }}>{title}</h4>
+        {isPrivate && (
+          <span className="tag" style={{ fontSize: '10px', padding: '2px 8px', background: 'rgba(244, 63, 94, 0.15)', color: '#fda4af', border: '1px solid rgba(244, 63, 94, 0.3)', whiteSpace: 'nowrap' }}>
+            🔒 Private
+          </span>
+        )}
+      </div>
       <div className="muted small">{description}</div>
       {tags && tags.length > 0 && (
         <div className="tags">
