@@ -5,7 +5,7 @@ import ProjectCard from './components/ProjectCard';
 import ProjectModal from './components/ProjectModal';
 import ContactForm from './components/ContactForm';
 import CertificationsPage from './components/CertificationsPage';
-import { privateProjects } from './config/privateProjects';
+import { privateProjects, isIgnoredRepo } from './config/privateProjects';
 
 export default function App() {
   const [currentRoute, setCurrentRoute] = useState('/');
@@ -13,7 +13,9 @@ export default function App() {
   const [logo, setLogo] = useState('TM');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const [projects, setProjects] = useState(privateProjects);
+  const [projects, setProjects] = useState(() =>
+    privateProjects.filter((p) => !isIgnoredRepo(p.name))
+  );
 
   const dotsRef = useRef([]);
   const mousePos = useRef({ x: -100, y: -100 });
@@ -66,36 +68,46 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // 4) Dynamic GitHub Projects Fetching (Supports Public & Private Repos via Token or Curated Config)
+  // 4) Dynamic GitHub Projects Fetching with Pagination (Fetches all repos except ignored ones)
   useEffect(() => {
     const token = import.meta.env.VITE_GITHUB_TOKEN;
-    const endpoint = token
-      ? 'https://api.github.com/user/repos?sort=updated&per_page=30&affiliation=owner'
-      : 'https://api.github.com/users/Tamizh-code/repos?sort=updated&per_page=30';
-
     const headers = {};
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    fetch(endpoint, { headers })
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch repositories');
-        return res.json();
-      })
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const ignoredRepoKeys = [
-            'tamizhcode',
-            'myportfolio',
-            'problemsolving',
-            'problemsloving'
-          ];
-          const formatted = data
+    const fetchAllRepos = async () => {
+      try {
+        let allRepos = [];
+        let page = 1;
+        let hasMore = true;
+
+        while (hasMore) {
+          const endpoint = token
+            ? `https://api.github.com/user/repos?sort=updated&per_page=100&page=${page}&affiliation=owner`
+            : `https://api.github.com/users/Tamizh-code/repos?sort=updated&per_page=100&page=${page}`;
+
+          const res = await fetch(endpoint, { headers });
+          if (!res.ok) throw new Error(`Failed to fetch repositories (Status ${res.status})`);
+          const data = await res.json();
+
+          if (Array.isArray(data) && data.length > 0) {
+            allRepos = [...allRepos, ...data];
+            if (data.length < 100) {
+              hasMore = false;
+            } else {
+              page++;
+            }
+          } else {
+            hasMore = false;
+          }
+        }
+
+        if (allRepos.length > 0) {
+          const formatted = allRepos
             .filter((repo) => {
               if (repo.fork) return false;
-              const cleanKey = repo.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-              return !ignoredRepoKeys.includes(cleanKey);
+              return !isIgnoredRepo(repo.name);
             })
             .map((repo) => ({
               id: String(repo.id),
@@ -113,31 +125,36 @@ export default function App() {
           if (formatted.length > 0) {
             const formattedCleanKeys = formatted.map((p) => p.name.toLowerCase().replace(/[^a-z0-9]/g, ''));
 
-            const curatedNonDuplicates = privateProjects.map((curated) => {
-              const clean = curated.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-              const matchedIdx = formattedCleanKeys.indexOf(clean);
-              if (matchedIdx !== -1) {
-                formatted[matchedIdx] = {
-                  ...curated,
-                  ...formatted[matchedIdx],
-                  title: curated.title || formatted[matchedIdx].title,
-                  body: curated.body || formatted[matchedIdx].body,
-                  tags: curated.tags?.length ? curated.tags : formatted[matchedIdx].tags,
-                  isPrivate: curated.isPrivate || formatted[matchedIdx].isPrivate,
-                  readmeContent: curated.readmeContent || formatted[matchedIdx].readmeContent
-                };
-                return null;
-              }
-              return curated;
-            }).filter(Boolean);
+            const curatedNonDuplicates = privateProjects
+              .filter((curated) => !isIgnoredRepo(curated.name))
+              .map((curated) => {
+                const clean = curated.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                const matchedIdx = formattedCleanKeys.indexOf(clean);
+                if (matchedIdx !== -1) {
+                  formatted[matchedIdx] = {
+                    ...curated,
+                    ...formatted[matchedIdx],
+                    title: curated.title || formatted[matchedIdx].title,
+                    body: curated.body || formatted[matchedIdx].body,
+                    tags: curated.tags?.length ? curated.tags : formatted[matchedIdx].tags,
+                    isPrivate: curated.isPrivate || formatted[matchedIdx].isPrivate,
+                    readmeContent: curated.readmeContent || formatted[matchedIdx].readmeContent
+                  };
+                  return null;
+                }
+                return curated;
+              })
+              .filter(Boolean);
 
             setProjects([...curatedNonDuplicates, ...formatted]);
           }
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error('Error fetching GitHub repos, using curated fallback projects:', err);
-      });
+      }
+    };
+
+    fetchAllRepos();
   }, []);
 
   // 5) Reveal / Fade-in on Scroll
@@ -312,7 +329,7 @@ export default function App() {
 
                   <div style={{ marginTop: '24px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                     <div className="card" style={{ display: 'flex', gap: '12px', alignItems: 'center', padding: '12px 18px' }}>
-                      <div style={{ fontSpread: 'normal', fontWeight: 800, fontSize: '18px', color: 'var(--accent1)' }}>10+</div>
+                      <div style={{ fontSpread: 'normal', fontWeight: 800, fontSize: '18px', color: 'var(--accent1)' }}>{projects.length}+</div>
                       <div className="muted small" style={{ fontWeight: 500 }}>Projects built</div>
                     </div>
                   </div>

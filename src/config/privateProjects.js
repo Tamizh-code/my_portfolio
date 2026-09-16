@@ -1,15 +1,21 @@
 /**
- * Curated Projects Configuration (7 Core Projects)
+ * Curated Projects Configuration & Ignored Repositories
  * 
- * Defines all 7 developer showcase projects:
- * 1. STMS Smart Tourist Management System
- * 2. Hotel Management
- * 3. Spacyn
- * 4. Banking System
- * 5. Process Flow App
- * 6. Hospital Web
- * 7. MAPLEADS (Newly added)
+ * Defines ignored repository keys and curated developer showcase projects.
  */
+
+export const IGNORED_REPO_KEYS = [
+  'tamizhcode',
+  'myportfolio',
+  'problemsolving',
+  'problemsloving'
+];
+
+export const isIgnoredRepo = (repoName) => {
+  if (!repoName) return false;
+  const cleanKey = repoName.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return IGNORED_REPO_KEYS.includes(cleanKey);
+};
 
 export const privateProjects = [
   {
@@ -141,6 +147,46 @@ export const privateProjects = [
       <ul>
         <li><strong>Appointment Booking:</strong> Patient booking form with department selection.</li>
         <li><strong>Responsive Design:</strong> Mobile-friendly layout optimized for fast patient emergency lookup.</li>
+      </ul>
+    `
+  },
+  {
+    id: 'p-aws-3tier-terraform',
+    name: 'aws-3tier-terraform-deployment',
+    title: 'AWS 3-Tier Terraform Deployment',
+    body: 'Infrastructure as Code (IaC) deployment for a highly available, multi-tier AWS architecture using Terraform.',
+    tags: ['HCL', 'Terraform', 'AWS', 'DevOps', 'Cloud'],
+    isPrivate: true,
+    htmlUrl: 'https://github.com/Tamizh-code/aws-3tier-terraform-deployment',
+    readmeContent: `
+      <h2>AWS 3-Tier Terraform Deployment</h2>
+      <p><strong>Private Repository</strong></p>
+      <p>An automated Infrastructure as Code (IaC) project deploying a secure, multi-tier cloud infrastructure on Amazon Web Services (AWS) using HashiCorp Terraform.</p>
+      <h3>Key Features & Architecture</h3>
+      <ul>
+        <li><strong>VPC & Networking:</strong> Configures multi-AZ VPC, public/private subnets, Internet Gateway, and NAT Gateways.</li>
+        <li><strong>3-Tier Isolation:</strong> Web tier (ALB/EC2), Application tier (Internal ALB/EC2), and Database tier (RDS Multi-AZ).</li>
+        <li><strong>Security & IAM:</strong> Least-privilege IAM roles and granular Security Groups for intra-tier communication.</li>
+      </ul>
+    `
+  },
+  {
+    id: 'p-doctor-appointment-assistant',
+    name: 'Doctor-Appointment-Assistant',
+    title: 'Doctor Appointment Assistant',
+    body: 'An intelligent healthcare assistant application for managing doctor appointments, patient schedules, and medical consultations.',
+    tags: ['Python', 'Healthcare', 'REST API'],
+    isPrivate: true,
+    htmlUrl: 'https://github.com/Tamizh-code/Doctor-Appointment-Assistant',
+    readmeContent: `
+      <h2>Doctor Appointment Assistant</h2>
+      <p><strong>Private Repository</strong></p>
+      <p>A smart medical scheduling assistant application designed to streamline doctor-patient appointments, automated reminders, and consultation management.</p>
+      <h3>Key Features & Architecture</h3>
+      <ul>
+        <li><strong>Smart Scheduling:</strong> Intelligent appointment booking algorithm preventing overlapping schedule slots.</li>
+        <li><strong>Patient Assistant:</strong> Interactive consultation workflows and patient medical history tracking.</li>
+        <li><strong>Backend Pipeline:</strong> Clean modular Python architecture with RESTful endpoints.</li>
       </ul>
     `
   }
