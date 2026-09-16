@@ -425,7 +425,7 @@ export default function App() {
           {currentRoute === '/about' && (
             <section id="page-about" className="fade-in visible">
               <h2 style={{ margin: '0 0 16px 0', fontWeight: 800, fontSize: '26px' }}>About me</h2>
-              <div className="card" style={{ padding: '24px', display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px' }}>
+              <div className="card two-col-layout">
                 <div>
                   <p className="muted" style={{ margin: '0 0 18px 0', lineHeight: '1.6', fontSize: '15px' }}>
                     I'm a Computer Science Engineering student with hands-on experience in Java Full Stack Development and Cloud Computing through academic projects, certifications, and a Java Full Stack internship. Skilled in API integration, database management, testing, and debugging, with a strong interest in building scalable and reliable software solutions.
@@ -453,7 +453,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 12px 0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 12px 0', flexWrap: 'wrap', gap: '8px' }}>
                     <h4 style={{ margin: 0, fontWeight: 800, fontSize: '16px' }}>Certifications & Achievements</h4>
                     <a href="#/certifications" className="muted small" style={{ fontWeight: 600, color: 'var(--accent1)', textDecoration: 'none' }}>View Certificate Gallery →</a>
                   </div>
@@ -507,12 +507,12 @@ export default function App() {
           {currentRoute === '/contact' && (
             <section id="page-contact" className="fade-in visible">
               <h2 style={{ margin: '0 0 16px 0', fontWeight: 800, fontSize: '26px' }}>Contact</h2>
-              <div className="card" style={{ padding: '24px', display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px' }}>
+              <div className="card two-col-layout">
                 <ContactForm />
 
-                <div style={{ paddingLeft: '12px' }}>
+                <div className="contact-sidebar">
                   <div className="muted-light small" style={{ fontWeight: 600 }}>Prefer email?</div>
-                  <div style={{ marginTop: '6px', fontWeight: 600 }}>mr.tamizh77@gmail.com</div>
+                  <div style={{ marginTop: '6px', fontWeight: 600, wordBreak: 'break-word' }}>mr.tamizh77@gmail.com</div>
                   <div className="muted-light small" style={{ marginTop: '20px', fontWeight: 600 }}>Location</div>
                   <div style={{ marginTop: '6px', fontWeight: 600 }}>Tamil Nadu, India</div>
                 </div>
