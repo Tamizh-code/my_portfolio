@@ -424,78 +424,174 @@ export default function App() {
           {/* ABOUT PAGE */}
           {currentRoute === '/about' && (
             <section id="page-about" className="fade-in visible">
-              <h2 style={{ margin: '0 0 16px 0', fontWeight: 800, fontSize: '26px' }}>About me</h2>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+                <div>
+                  <span className="eyebrow">Professional Profile & Resume</span>
+                  <h2 style={{ margin: '8px 0 0 0', fontWeight: 800, fontSize: '28px' }}>About Me</h2>
+                </div>
+                <a
+                  href="/Tamizh_Mani_V_Resume.docx"
+                  download="Tamizh_Mani_V_Resume.docx"
+                  className="btn btn-primary"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '13px', padding: '10px 18px' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Download Resume (CV)
+                </a>
+              </div>
+
               <div className="card two-col-layout">
                 <div>
-                  <p className="muted" style={{ margin: '0 0 18px 0', lineHeight: '1.6', fontSize: '15px' }}>
-                    I'm a Computer Science Engineering student with hands-on experience in Java Full Stack Development and Cloud Computing through academic projects, certifications, and a Java Full Stack internship. Skilled in API integration, database management, testing, and debugging, with a strong interest in building scalable and reliable software solutions.
+                  {/* Professional Summary */}
+                  <h4 style={{ margin: '0 0 10px 0', fontWeight: 800, fontSize: '16px', color: 'var(--accent1)' }}>
+                    Professional Summary
+                  </h4>
+                  <p className="muted" style={{ margin: '0 0 24px 0', lineHeight: '1.65', fontSize: '15px' }}>
+                    Final-year Computer Science Engineering student specializing in <strong>Java Full Stack Development</strong> and <strong>Cloud Engineering</strong>, with hands-on experience in building scalable web, cloud, and AI-powered applications. Proficient in Java, Spring Boot, React.js, MySQL, REST APIs, AWS, Docker, and Google Cloud. Practical exposure through enterprise-grade academic projects and an industry full-stack internship. Experienced in API integration, relational database design, IaC cloud deployment (Terraform), and modern software workflows using Git & Postman. Strong problem-solving, leadership, and collaborative skills.
                   </p>
 
-                  <h4 style={{ margin: '24px 0 10px 0', fontWeight: 800, fontSize: '16px' }}>What I do</h4>
-                  <ul className="muted" style={{ margin: '0 0 24px 0', paddingLeft: '20px', lineHeight: '1.6', fontSize: '15px' }}>
-                    <li>Develop full-stack web applications using Java, Spring Boot, and React.js.</li>
-                    <li>Design databases using MySQL and PostgreSQL and create REST APIs.</li>
-                    <li>Deploy serverless apps, event-driven architectures, and Generative AI pipelines on Cloud (AWS/GCP).</li>
-                    <li>Perform testing, debugging, and code optimizations.</li>
-                  </ul>
+                  {/* Education */}
+                  <h4 style={{ margin: '24px 0 12px 0', fontWeight: 800, fontSize: '16px' }}>Education</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '24px' }}>
+                    <div style={{ borderLeft: '3px solid var(--accent1)', paddingLeft: '14px' }}>
+                      <div style={{ fontWeight: 800, fontSize: '15px' }}>B.E. Computer Science and Engineering</div>
+                      <div className="muted small" style={{ fontWeight: 500, marginTop: '2px' }}>Erode Sengunthar Engineering College • 2024 - 2027</div>
+                      <div className="muted small" style={{ fontWeight: 700, color: 'var(--accent1)', marginTop: '4px' }}>CGPA: 8.5 / 10</div>
+                    </div>
+                    <div style={{ borderLeft: '3px solid var(--muted-light)', paddingLeft: '14px' }}>
+                      <div style={{ fontWeight: 800, fontSize: '15px' }}>Diploma in Mechanical Engineering</div>
+                      <div className="muted small" style={{ fontWeight: 500, marginTop: '2px' }}>Rajagopal Polytechnic College • 2020 - 2023</div>
+                      <div className="muted small" style={{ fontWeight: 700, marginTop: '4px' }}>Percentage: 80%</div>
+                    </div>
+                  </div>
 
-                  <h4 style={{ margin: '0 0 12px 0', fontWeight: 800, fontSize: '16px' }}>Education</h4>
+                  {/* Categorized Technical Skills */}
+                  <h4 style={{ margin: '24px 0 12px 0', fontWeight: 800, fontSize: '16px' }}>Technical Skills & Competencies</h4>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
-                    <div style={{ borderLeft: '3px solid var(--accent1)', paddingLeft: '12px' }}>
-                      <div style={{ fontWeight: 800 }}>B.E. Computer Science and Engineering</div>
-                      <div className="muted small" style={{ fontWeight: 500 }}>Erode Sengunthar Engineering College • 2024 - 2027</div>
-                      <div className="muted small" style={{ fontWeight: 600, color: 'var(--accent1)', marginTop: '2px' }}>CGPA: 8.5 / 10</div>
+                    <div>
+                      <div className="muted small" style={{ fontWeight: 700, marginBottom: '6px', color: 'var(--accent1)' }}>Programming Languages</div>
+                      <div className="skills">
+                        <div className="skill">Java</div>
+                        <div className="skill">Python</div>
+                        <div className="skill">SQL</div>
+                        <div className="skill">JavaScript</div>
+                        <div className="skill">Dart</div>
+                        <div className="skill">HCL (Terraform)</div>
+                      </div>
                     </div>
-                    <div style={{ borderLeft: '3px solid var(--muted-light)', paddingLeft: '12px' }}>
-                      <div style={{ fontWeight: 800 }}>Diploma in Mechanical Engineering</div>
-                      <div className="muted small" style={{ fontWeight: 500 }}>Rajagopal Polytechnic College • 2020 - 2023</div>
-                      <div className="muted small" style={{ fontWeight: 600, marginTop: '2px' }}>Percentage: 80%</div>
+                    <div>
+                      <div className="muted small" style={{ fontWeight: 700, marginBottom: '6px', color: 'var(--accent1)' }}>Web & Frameworks</div>
+                      <div className="skills">
+                        <div className="skill">Spring Boot</div>
+                        <div className="skill">Spring MVC</div>
+                        <div className="skill">Spring Data JPA / Hibernate</div>
+                        <div className="skill">React.js</div>
+                        <div className="skill">REST APIs</div>
+                        <div className="skill">HTML5 & CSS3</div>
+                        <div className="skill">Bootstrap</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="muted small" style={{ fontWeight: 700, marginBottom: '6px', color: 'var(--accent1)' }}>Cloud, DevOps & Infrastructure</div>
+                      <div className="skills">
+                        <div className="skill">AWS (EC2, S3, RDS, ASG, ALB, CloudWatch)</div>
+                        <div className="skill">Terraform IaC</div>
+                        <div className="skill">Docker</div>
+                        <div className="skill">Kubernetes Basics</div>
+                        <div className="skill">GCP Basics</div>
+                        <div className="skill">CI/CD Pipelines</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="muted small" style={{ fontWeight: 700, marginBottom: '6px', color: 'var(--accent1)' }}>AI / ML & GenAI</div>
+                      <div className="skills">
+                        <div className="skill">LangChain</div>
+                        <div className="skill">LangGraph</div>
+                        <div className="skill">RAG Architecture</div>
+                        <div className="skill">Google Gemini API</div>
+                        <div className="skill">Qdrant Vector DB</div>
+                        <div className="skill">Vertex AI</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="muted small" style={{ fontWeight: 700, marginBottom: '6px', color: 'var(--accent1)' }}>Databases & Tools</div>
+                      <div className="skills">
+                        <div className="skill">MySQL</div>
+                        <div className="skill">PostgreSQL</div>
+                        <div className="skill">MongoDB</div>
+                        <div className="skill">Redis</div>
+                        <div className="skill">Firebase</div>
+                        <div className="skill">Git & GitHub</div>
+                        <div className="skill">Postman</div>
+                        <div className="skill">IntelliJ IDEA</div>
+                        <div className="skill">VS Code</div>
+                        <div className="skill">XAMPP</div>
+                      </div>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '0 0 12px 0', flexWrap: 'wrap', gap: '8px' }}>
-                    <h4 style={{ margin: 0, fontWeight: 800, fontSize: '16px' }}>Certifications & Achievements</h4>
-                    <a href="#/certifications" className="muted small" style={{ fontWeight: 600, color: 'var(--accent1)', textDecoration: 'none' }}>View Certificate Gallery →</a>
+                  {/* Certifications & Achievements */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '24px 0 12px 0', flexWrap: 'wrap', gap: '8px' }}>
+                    <h4 style={{ margin: 0, fontWeight: 800, fontSize: '16px' }}>Certifications & Honors</h4>
+                    <a href="#/certifications" className="muted small" style={{ fontWeight: 600, color: 'var(--accent1)', textDecoration: 'none' }}>View All 17+ Certificates →</a>
                   </div>
-                  <ul className="muted" style={{ margin: '0 0 24px 0', paddingLeft: '20px', lineHeight: '1.6', fontSize: '15px' }}>
-                    <li><strong>AWS Cloud Practitioner Essentials:</strong> In-depth training on cloud concepts and core AWS services.</li>
-                    <li><strong>Google Cloud Arcade:</strong> Earned 7+ Google Cloud Skill Badges & completed Google Cloud Arcade Level 3 (Serverless, Generative AI, cloud infra).</li>
-                    <li><strong>Infosys Springboard:</strong> Completed 10+ certifications in Front-End Dev, AI, Python, Software Engineering, and RPA.</li>
-                    <li><strong>Cognizant Hackathon 2026:</strong> Successfully advanced to the Second Round of the challenge.</li>
-                    <li><strong>CADD Centre:</strong> Certified in Python Programming and Frontend Web Development.</li>
+                  <ul className="muted" style={{ margin: '0 0 24px 0', paddingLeft: '20px', lineHeight: '1.65', fontSize: '14.5px' }}>
+                    <li><strong>AWS Cloud Practitioner Essentials:</strong> Training on core cloud concepts, AWS services, and cloud security architecture.</li>
+                    <li><strong>17 Google Skills Boost Badges:</strong> Earned badges in Generative AI, Vertex AI, Prompt Engineering, Gemini, Streamlit, and GCP Cloud infra.</li>
+                    <li><strong>HackerRank Software Engineer Certification:</strong> Verified proficiency in programming, problem solving, DSA, and software engineering principles.</li>
+                    <li><strong>NPTEL Programming in Java:</strong> Successfully completed national-level certification in Java programming.</li>
+                    <li><strong>Cognizant Hackathon 2026:</strong> Advanced to Round 2 in national software innovation challenge.</li>
+                    <li><strong>Adobe India Hackathon 2026:</strong> Competed and developed innovative solution in national hackathon.</li>
+                    <li><strong>Infosys Springboard (10+ Certifications):</strong> Completed courses in Front-End Dev, AI, Python, Software Engineering, and RPA.</li>
+                    <li><strong>CADD Centre Certified:</strong> Certified in Python Programming & Frontend Web Development.</li>
                   </ul>
 
-                  <h4 style={{ margin: '0 0 12px 0', fontWeight: 800, fontSize: '16px' }}>Tools & Technologies</h4>
-                  <div className="skills">
-                    <div className="skill">Java</div>
-                    <div className="skill">Spring Boot</div>
-                    <div className="skill">React.js</div>
-                    <div className="skill">MySQL</div>
-                    <div className="skill">PostgreSQL</div>
-                    <div className="skill">AWS</div>
-                    <div className="skill">GCP</div>
-                    <div className="skill">Git & GitHub</div>
-                    <div className="skill">VS Code</div>
-                    <div className="skill">IntelliJ IDEA</div>
-                    <div className="skill">Postman</div>
-                  </div>
+                  {/* Leadership & Extra Curriculum */}
+                  <h4 style={{ margin: '24px 0 12px 0', fontWeight: 800, fontSize: '16px' }}>Leadership & Student Mentorship</h4>
+                  <ul className="muted" style={{ margin: '0 0 12px 0', paddingLeft: '20px', lineHeight: '1.65', fontSize: '14.5px' }}>
+                    <li><strong>Technical Lead (College Students Committee):</strong> Led technical hackathons, coding workshops, and project-based activities while coordinating student teams.</li>
+                    <li><strong>Learning Club Lead (Student Mentorship Program):</strong> Mentored junior students in programming, real-world full-stack projects, Git/GitHub, and career readiness.</li>
+                  </ul>
                 </div>
 
+                {/* Right Column: Internship Experience & Highlights */}
                 <div>
-                  <div className="card" style={{ padding: '18px', background: 'rgba(255, 255, 255, 0.4)', height: '100%', display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                    <div style={{ fontWeight: 800, borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '8px' }}>Internship Experience</div>
+                  <div className="card" style={{ padding: '20px', background: 'rgba(255, 255, 255, 0.45)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <div style={{ fontWeight: 800, fontSize: '15px', borderBottom: '1px solid rgba(15, 23, 42, 0.08)', paddingBottom: '10px' }}>
+                      💼 Industry Internship
+                    </div>
                     <div>
-                      <strong style={{ fontWeight: 800, fontSize: '14px' }}>Java Full Stack Developer Intern</strong>
-                      <div className="muted small" style={{ fontWeight: 600, color: 'var(--accent1)' }}>Azhizhen Solutions</div>
-                      <div className="muted small" style={{ marginTop: '2px' }}>Feb 2026 - Mar 2026</div>
-                      <p className="muted small" style={{ marginTop: '8px', lineHeight: '1.4' }}>
-                        Contributed to full stack web applications using Spring Boot, Java, and MySQL. Handled API development, testing, database schema management, and debugging.
-                      </p>
+                      <strong style={{ fontWeight: 800, fontSize: '15px' }}>Java Full Stack Developer Intern</strong>
+                      <div className="muted small" style={{ fontWeight: 700, color: 'var(--accent1)', marginTop: '2px' }}>Azhizhen Solutions</div>
+                      <div className="muted small" style={{ marginTop: '2px', fontWeight: 500 }}>Feb 2026 - Mar 2026</div>
+
+                      <div style={{ marginTop: '10px', fontSize: '13.5px', lineHeight: '1.5' }}>
+                        <div style={{ fontWeight: 700, marginBottom: '4px', color: 'var(--text)' }}>Project: Process Flow Control Application</div>
+                        <ul className="muted" style={{ margin: 0, paddingLeft: '16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                          <li>Developed full stack workflow management app using Java, Spring Boot, & MySQL to automate business process flows.</li>
+                          <li>Designed RESTful APIs for process creation, approval management, & real-time status tracking.</li>
+                          <li>Implemented secure CRUD operations & optimized MySQL database schema design.</li>
+                          <li>Integrated frontend/backend with Spring MVC & REST APIs, tested via Postman & managed with GitHub.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div style={{ borderTop: '1px solid rgba(15, 23, 42, 0.08)', paddingTop: '14px' }}>
+                      <strong style={{ fontWeight: 800, fontSize: '14px' }}>🌐 Languages Spoken</strong>
+                      <div className="muted small" style={{ marginTop: '6px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                        <span className="skill" style={{ padding: '4px 10px' }}>English (Professional)</span>
+                        <span className="skill" style={{ padding: '4px 10px' }}>Tamil (Native)</span>
+                        <span className="skill" style={{ padding: '4px 10px' }}>Telugu</span>
+                      </div>
                     </div>
 
                     <div style={{ marginTop: 'auto', borderTop: '1px solid rgba(15, 23, 42, 0.08)', paddingTop: '14px' }}>
-                      <strong style={{ fontWeight: 800 }}>Available for roles</strong>
-                      <div className="muted small" style={{ marginTop: '2px' }}>Full-time / Entry-level roles</div>
+                      <strong style={{ fontWeight: 800 }}>Available for Roles</strong>
+                      <div className="muted small" style={{ marginTop: '2px', fontWeight: 500 }}>Full-time / Entry-level Software Engineer, Java Developer & Cloud Engineer</div>
                     </div>
                   </div>
                 </div>
